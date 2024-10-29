@@ -17,7 +17,7 @@ final class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
-
+    
     @IBOutlet private var tableView: UITableView!
     
     override func viewDidLoad() {
