@@ -35,7 +35,6 @@ class SingleImageViewController: UIViewController {
         present(share, animated: true, completion: nil)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let image else {return}

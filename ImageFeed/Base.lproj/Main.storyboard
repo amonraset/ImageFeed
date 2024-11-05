@@ -161,12 +161,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sN-wL-BWM" userLabel="didTapShareButton">
-                                <rect key="frame" x="162" y="751" width="50" height="50"/>
+                                <rect key="frame" x="162" y="751" width="51" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3cg-Ma-Y69"/>
-                                    <constraint firstAttribute="height" constant="50" id="GGC-Xu-CgV"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="s3A-5i-P95"/>
-                                    <constraint firstAttribute="width" constant="50" id="w5O-OU-eeH"/>
+                                    <constraint firstAttribute="height" constant="51" id="GGC-Xu-CgV"/>
+                                    <constraint firstAttribute="width" secondItem="1sN-wL-BWM" secondAttribute="height" multiplier="1:1" id="RJx-xQ-OCO"/>
+                                    <constraint firstAttribute="width" constant="51" id="w5O-OU-eeH"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
@@ -178,13 +177,13 @@
                         <viewLayoutGuide key="safeArea" id="QcD-a3-xOx"/>
                         <color key="backgroundColor" name="YP Black (iOS)"/>
                         <constraints>
-                            <constraint firstItem="QcD-a3-xOx" firstAttribute="bottom" secondItem="1sN-wL-BWM" secondAttribute="bottom" constant="51" id="4fY-GB-fyY"/>
+                            <constraint firstItem="1sN-wL-BWM" firstAttribute="leading" secondItem="QcD-a3-xOx" secondAttribute="leading" constant="162" id="3K7-Xs-V6i"/>
                             <constraint firstItem="uX6-Ox-o9J" firstAttribute="trailing" secondItem="QcD-a3-xOx" secondAttribute="trailing" id="Iy2-TE-Whh"/>
                             <constraint firstItem="sdD-ai-kg5" firstAttribute="top" secondItem="QcD-a3-xOx" secondAttribute="top" constant="55" id="OmX-1Q-PfS"/>
                             <constraint firstItem="sdD-ai-kg5" firstAttribute="leading" secondItem="QcD-a3-xOx" secondAttribute="leading" constant="9" id="ViQ-sO-ZCB"/>
                             <constraint firstItem="uX6-Ox-o9J" firstAttribute="bottom" secondItem="QcD-a3-xOx" secondAttribute="bottom" id="ZHV-QK-NVE"/>
                             <constraint firstItem="QcD-a3-xOx" firstAttribute="leading" secondItem="uX6-Ox-o9J" secondAttribute="leading" id="lJn-kZ-M6p"/>
-                            <constraint firstItem="1sN-wL-BWM" firstAttribute="leading" secondItem="QcD-a3-xOx" secondAttribute="leading" constant="162" id="xzi-Ng-P0U"/>
+                            <constraint firstItem="QcD-a3-xOx" firstAttribute="bottom" secondItem="1sN-wL-BWM" secondAttribute="bottom" constant="50" id="o2x-mD-0Qm"/>
                             <constraint firstItem="QcD-a3-xOx" firstAttribute="top" secondItem="uX6-Ox-o9J" secondAttribute="top" id="zV7-iA-XyM"/>
                         </constraints>
                     </view>

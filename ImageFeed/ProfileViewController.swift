@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
-    var userPhoto = "Photo.png"
-    let userNameText = "Екатерина Новикова"
-    let userEmailText = "@ekaterina_nov"
-    let userTextWords = "Hello, world!"
-    let exitPictureName = "Exit.png"
+    private var userPhoto = "Photo.png"
+    private let userNameText = "Екатерина Новикова"
+    private let userEmailText = "@ekaterina_nov"
+    private let userTextWords = "Hello, world!"
+    private let exitPictureName = "Exit.png"
     
     private lazy var buttonExit: UIButton = {
         let buttonExit = UIButton()
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController {
         addConstraints()
     }
     
-    func addSubViews() {
+    private func addSubViews() {
         view.addSubview(profileImageView)
         view.addSubview(userNameLabel)
         view.addSubview(userEmailLabel)
@@ -74,11 +74,11 @@ class ProfileViewController: UIViewController {
         view.addSubview(buttonExit)
     }
     
-    func addConstraints() {
+    private func addConstraints() {
 
         NSLayoutConstraint.activate([
-            profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             profileImageView.widthAnchor.constraint(equalToConstant: 70),
             profileImageView.heightAnchor.constraint(equalToConstant: 70),
             
@@ -89,7 +89,7 @@ class ProfileViewController: UIViewController {
             userTextLabel.leadingAnchor.constraint(equalTo: userEmailLabel.leadingAnchor),
             userTextLabel.topAnchor.constraint(equalTo: userEmailLabel.bottomAnchor, constant: 8),
             
-            buttonExit.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            buttonExit.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             buttonExit.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor)
         ])
     }
