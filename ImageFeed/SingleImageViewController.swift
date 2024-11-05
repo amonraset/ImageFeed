@@ -5,8 +5,7 @@
 //  Created by sm on 02.11.2024.
 //
 import UIKit
-
-class SingleImageViewController: UIViewController {
+final class SingleImageViewController: UIViewController {
     
     var image: UIImage?{
         didSet {
@@ -17,16 +16,16 @@ class SingleImageViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private weak var imageView: UIImageView!
     
-    @IBAction func didTapBackButton(_ sender: Any) {
+    @IBAction private func didTapBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     
     
-    @IBAction func didTapShareButton(_ sender: Any) {
+    @IBAction private func didTapShareButton(_ sender: Any) {
         guard let image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
