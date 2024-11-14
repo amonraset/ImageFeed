@@ -26,7 +26,6 @@ final class ProfileViewController: UIViewController {
     private lazy var profileImageView: UIImageView = {
         let profileImage = UIImage(named: userPhoto)
         let imageView = UIImageView(image: profileImage)
-        imageView.tintColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
