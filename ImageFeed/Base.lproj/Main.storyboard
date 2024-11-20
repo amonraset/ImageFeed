@@ -201,7 +201,7 @@
         <!--Auth View Controller-->
         <scene sceneID="iw0-7k-lTw">
             <objects>
-                <viewController id="wRG-Bb-4te" customClass="AuthViewController" sceneMemberID="viewController">
+                <viewController id="wRG-Bb-4te" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="quF-sQ-1BD">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -268,18 +268,26 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-8c-NJm">
+                                <rect key="frame" x="0.0" y="103" width="393" height="4"/>
+                                <color key="tintColor" name="YP Black (iOS)"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Yib-pA-5jl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RIs-H5-NqI" firstAttribute="top" secondItem="Yib-pA-5jl" secondAttribute="top" id="Fp9-Bq-NMo"/>
+                            <constraint firstItem="Yib-pA-5jl" firstAttribute="trailing" secondItem="dJc-8c-NJm" secondAttribute="trailing" id="dJy-o9-C5I"/>
                             <constraint firstAttribute="bottom" secondItem="RIs-H5-NqI" secondAttribute="bottom" id="jug-F5-dsl"/>
                             <constraint firstItem="RIs-H5-NqI" firstAttribute="trailing" secondItem="Yib-pA-5jl" secondAttribute="trailing" id="kKl-KS-D96"/>
                             <constraint firstItem="RIs-H5-NqI" firstAttribute="leading" secondItem="Yib-pA-5jl" secondAttribute="leading" id="rO4-ZD-aXn"/>
+                            <constraint firstItem="dJc-8c-NJm" firstAttribute="top" secondItem="Yib-pA-5jl" secondAttribute="top" id="ttc-Nt-pWj"/>
+                            <constraint firstItem="dJc-8c-NJm" firstAttribute="leading" secondItem="Yib-pA-5jl" secondAttribute="leading" id="wDr-9G-9aq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="S2y-lh-7T1"/>
                     <connections>
+                        <outlet property="progressView" destination="dJc-8c-NJm" id="ICa-O0-BqL"/>
                         <outlet property="webView" destination="RIs-H5-NqI" id="iPe-OT-3LG"/>
                     </connections>
                 </viewController>
