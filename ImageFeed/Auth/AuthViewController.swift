@@ -5,7 +5,6 @@
 //  Created by sm on 16.11.2024.
 //
 import UIKit
-import WebKit
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)

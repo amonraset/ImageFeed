@@ -23,19 +23,17 @@ struct OAuthTokenResponseBody: Decodable {
 final class OAuth2TokenStorage {
     var token: String? {
         get {
-            storage.string(forKey: Key.token.rawValue)
+            storage.string(forKey: Keys.token.rawValue)
         }
         set {
-            storage.set(newValue, forKey: Key.token.rawValue)
+            storage.set(newValue, forKey: Keys.token.rawValue)
         }
     }
     
     private let storage: UserDefaults = .standard
     
-    private enum Key: String {
+    private enum Keys: String {
         case token
     }
-
 }
-    
 

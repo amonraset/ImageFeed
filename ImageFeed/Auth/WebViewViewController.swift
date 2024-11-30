@@ -5,7 +5,7 @@
 //  Created by sm on 16.11.2024.
 //
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
 enum WebViewConstants {
     static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
@@ -32,7 +32,7 @@ final class WebViewViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
         updateProgress()
     }
     

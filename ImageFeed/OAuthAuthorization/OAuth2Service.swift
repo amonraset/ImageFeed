@@ -22,8 +22,6 @@ final class OAuth2Service {
     private let urlSession =  URLSession.shared
     private let decoder = JSONDecoder()
     
-    private init(){}
-    
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         
         let request = makeOAuthTokenRequest(code: code)
@@ -32,22 +30,21 @@ final class OAuth2Service {
             
             guard let self else { preconditionFailure("Error: self is nil") }
             
-                switch result {
-                case .success(let data):
-                    do {
-                        let OAuthTokenResponseBody = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                        self.authToken = OAuthTokenResponseBody.accessToken
-                        completion(.success(OAuthTokenResponseBody.accessToken))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
+            switch result {
+            case .success(let data):
+                do {
+                    let OAuthTokenResponseBody = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+                    self.authToken = OAuthTokenResponseBody.accessToken
+                    completion(.success(OAuthTokenResponseBody.accessToken))
+                } catch {
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
         task.resume()
     }
-    
     
     func makeOAuthTokenRequest(code: String) -> URLRequest {
         guard let baseURL = URL(string: "https://unsplash.com") else {
