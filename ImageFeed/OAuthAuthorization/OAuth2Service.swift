@@ -10,11 +10,11 @@ import Foundation
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
+    
     var authToken: String? {
         get {
             OAuth2TokenStorage().token
-        }
-        set {
+        } set {
             OAuth2TokenStorage().token = newValue
         }
     }
@@ -22,13 +22,21 @@ final class OAuth2Service {
     private let urlSession =  URLSession.shared
     private let decoder = JSONDecoder()
     
+    private init() {}
+    
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let request = makeOAuthTokenRequest(code: code)
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            print("Error: request is nil")
+            return
+        }
         
-        let task = urlSession.data(for: request) {[weak self] result in
+        let task = urlSession.data(for: request) { [weak self] result in
             
-            guard let self else { preconditionFailure("Error: self is nil") }
+            guard let self else {
+                print("Error: self is nil")
+                return
+            }
             
             switch result {
             case .success(let data):
@@ -37,32 +45,40 @@ final class OAuth2Service {
                     self.authToken = OAuthTokenResponseBody.accessToken
                     completion(.success(OAuthTokenResponseBody.accessToken))
                 } catch {
+                    print("decoding error:", error)
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print("error:", error)
                 completion(.failure(error))
             }
         }
+        
         task.resume()
     }
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest {
-        guard let baseURL = URL(string: "https://unsplash.com") else {
-            preconditionFailure("Error: invalid base URL")
+    func makeOAuthTokenRequest(code: String) -> URLRequest? {
+        
+        guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else {
+                print("Error: invalid base URL")
+                return nil
+            }
+            
+            urlComponents.queryItems = [
+                URLQueryItem(name: "client_id", value: Constants.accessKey),
+                URLQueryItem(name: "client_secret", value: Constants.secretKey),
+                URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+                URLQueryItem(name: "code", value: code),
+                URLQueryItem(name: "grant_type", value: "authorization_code")
+            ]
+            
+            guard let url = urlComponents.url else {
+                print("Invalid URL")
+                return nil
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            return request
         }
-        guard let url = URL(
-            string: "/oauth/token"
-            + "?client_id=\(Constants.accessKey)"
-            + "&&client_secret=\(Constants.secretKey)"
-            + "&&redirect_uri=\(Constants.redirectURI)"
-            + "&&code=\(code)"
-            + "&&grant_type=authorization_code",
-            relativeTo: baseURL
-        ) else {
-            preconditionFailure("Error: invalid URL")
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        return request
-    }
 }

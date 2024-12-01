@@ -18,8 +18,8 @@ protocol WebViewViewControllerDelegate: AnyObject {
 
 final class WebViewViewController: UIViewController{
     
-    @IBOutlet private var webView: WKWebView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet private weak var webView: WKWebView!
+    @IBOutlet private weak var progressView: UIProgressView!
     
     weak var delegate: WebViewViewControllerDelegate?
     
@@ -45,8 +45,8 @@ final class WebViewViewController: UIViewController{
         forKeyPath keyPath: String?,
         of object: Any?,
         change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?)
-            {
+        context: UnsafeMutableRawPointer?
+    ) {
             if keyPath == #keyPath(WKWebView.estimatedProgress) {
                 updateProgress()
             } else {
@@ -110,6 +110,3 @@ extension WebViewViewController: WKNavigationDelegate {
         }
     }
 }
-    
-
-
