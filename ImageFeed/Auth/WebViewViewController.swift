@@ -47,11 +47,11 @@ final class WebViewViewController: UIViewController{
         change: [NSKeyValueChangeKey : Any]?,
         context: UnsafeMutableRawPointer?
     ) {
-            if keyPath == #keyPath(WKWebView.estimatedProgress) {
-                updateProgress()
-            } else {
-                super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-            }
+        if keyPath == #keyPath(WKWebView.estimatedProgress) {
+            updateProgress()
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        }
     }
     
     private func loadAuthView() {
@@ -67,7 +67,7 @@ final class WebViewViewController: UIViewController{
         ]
         
         guard let url = urlComponents.url else {
-            print ("error 2")
+            print ("Error: Failed to create URL from URLComponents")
             return
         }
         
@@ -81,7 +81,7 @@ final class WebViewViewController: UIViewController{
     }
     
 }
-    
+
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
@@ -95,7 +95,7 @@ extension WebViewViewController: WKNavigationDelegate {
             decisionHandler(.allow)
         }
     }
-
+    
     private func code(from navigationAction: WKNavigationAction) -> String? {
         if
             let url = navigationAction.request.url,
