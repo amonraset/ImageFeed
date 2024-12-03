@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class SplashViewController: UIViewController {
     
@@ -69,7 +70,9 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchOAuthToken(_ code: String) {
+        ProgressHUD.animate()
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
+            ProgressHUD.dismiss()
             guard let self = self else {
                 print("fetchOAuthToken error: self is nil")
                 return
