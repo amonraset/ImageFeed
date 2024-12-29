@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
@@ -25,6 +29,7 @@ final class OAuth2Service {
     private init() {}
     
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
         
         guard let request = makeOAuthTokenRequest(code: code) else {
             print("Error: request is nil")
@@ -59,7 +64,7 @@ final class OAuth2Service {
     
     func makeOAuthTokenRequest(code: String) -> URLRequest? {
         
-        guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else {
+        guard var urlComponents = URLComponents(string: Constants.baseURLString) else {
                 print("Error: invalid base URL")
                 return nil
             }
