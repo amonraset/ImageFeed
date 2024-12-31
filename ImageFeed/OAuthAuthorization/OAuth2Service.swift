@@ -29,35 +29,20 @@ final class OAuth2Service {
     private init() {}
     
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread) //вопрос гонка
+        assert(Thread.isMainThread)
         
         guard let request = makeOAuthTokenRequest(code: code) else {
             print("Error: request is nil")
             return
         }
         
-        let task = urlSession.data(for: request) { [weak self] result in
-            
-            guard let self else {
-                print("Error: self is nil")
-                return
-            }
-            
-//            enum ES: Error { case iv }
-//            completion(.failure(ES.iv))
+        let urlSession = URLSession.shared
+        let task = urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
             
             switch result {
             case .success(let data):
-                do {
-                    let OAuthTokenResponseBody = try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                    self.authToken = OAuthTokenResponseBody.accessToken
-                    completion(.success(OAuthTokenResponseBody.accessToken))
-                } catch {
-                    print("decoding error:", error)
-                    completion(.failure(error))
-                }
+                completion(.success(data.accessToken))
             case .failure(let error):
-                print("error:", error)
                 completion(.failure(error))
             }
         }

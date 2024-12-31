@@ -22,7 +22,7 @@ final class ProfileService {
     
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
-        assert(Thread.isMainThread) //вопрос гонка
+        assert(Thread.isMainThread)
         
         if task != nil {
             print("ProfileService: The request is already in progress, no extra request needed")
@@ -77,7 +77,7 @@ final class ProfileService {
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"  //вопрос get
+        request.httpMethod = "GET"
         return request
     }
 }

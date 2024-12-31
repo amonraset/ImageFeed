@@ -65,7 +65,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageServiceObserver = NotificationCenter.default // вопрос Observer
+        profileImageServiceObserver = NotificationCenter.default 
             .addObserver(
                 forName: ProfileImageService.didChangeNotification,
                 object: nil,
@@ -124,7 +124,7 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else {
-            print("error: updateAvatar")
+            print("updateAvatar error: invalid URL ")
             return
         }
         

@@ -20,7 +20,7 @@ final class ProfileImageService {
     private(set) var avatarURL: String?
     
     func fetchProfileImageURL(username: String, _ completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread) //вопрос гонка
+        assert(Thread.isMainThread)
         
         if task != nil {
             print("ProfileImageService/ Invalid request, already fetching")
@@ -37,10 +37,6 @@ final class ProfileImageService {
         }
         
         print("ProfileImageService:", request)
-        
-        //https://api.unsplash.com/users/amon_minia?client_id=iNaFNtuyZH1P8xOknycZ8J4vr3qqqv-JwR1RTR2sD4Q
-        
-        // dataTask -> data -> decode UserResult -> response/result UserResult
         
         let urlSession = URLSession.shared
         let task = urlSession.objectTask(for: request) { (result: Result<UserResult, Error>) in
@@ -60,7 +56,6 @@ final class ProfileImageService {
             case .failure(let error):
                 completion(.failure(error))
             }
-            
             self.task = nil
         }
         
@@ -86,7 +81,7 @@ final class ProfileImageService {
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"  //вопрос get
+        request.httpMethod = "GET"
         return request
     }
 }

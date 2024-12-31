@@ -30,7 +30,7 @@ final class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black (iOS)")
     }
     
-
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,7 +66,7 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 OAuth2TokenStorage.shared.token = receivedToken
                 //delegate?.didAuthenticate(self)
                 delegate?.authViewController(self, didAuthenticateWithCode: code)
-            case .failure(let error):
+            case .failure:
                 self?.showAuthErrorAlert()
             }
         }
