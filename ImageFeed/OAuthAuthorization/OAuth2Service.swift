@@ -29,7 +29,7 @@ final class OAuth2Service {
     private init() {}
     
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread)
+        assert(Thread.isMainThread) //вопрос гонка
         
         guard let request = makeOAuthTokenRequest(code: code) else {
             print("Error: request is nil")
@@ -42,6 +42,9 @@ final class OAuth2Service {
                 print("Error: self is nil")
                 return
             }
+            
+//            enum ES: Error { case iv }
+//            completion(.failure(ES.iv))
             
             switch result {
             case .success(let data):

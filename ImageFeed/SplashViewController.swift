@@ -7,7 +7,7 @@
 
 import UIKit
 import ProgressHUD
-import SwiftKeychainWrapper
+//import SwiftKeychainWrapper
 
 
 final class SplashViewController: UIViewController {
@@ -36,7 +36,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         
         if let token = storage.token {
             fetchProfile(token)
@@ -86,21 +86,24 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchOAuthToken(_ code: String) {
-        //ProgressHUD.animate()
-        UIBlockingProgressHUD.show()
+        UIBlockingProgressHUD.show() //вопрос 4
+        
         oauth2Service.fetchOAuthToken(code) { [weak self] result in
-            //ProgressHUD.dismiss()
-            UIBlockingProgressHUD.dismiss()
+            
+            UIBlockingProgressHUD.dismiss() //вопрос 4
+            
             guard let self = self else {
-                print("fetchOAuthToken error: self is nil")
+                print("SplashViewController/ fetchOAuthToken error: self is nil")
                 return
             }
+            
             switch result {
             case .success:
                 fetchProfileWithStoredToken()
                 self.switchToTabBarController()
             case .failure:
-                print("result is failure")
+                //self.showAuthErrorAlert()
+                print("SplashViewController/ fetchOAuthToken error: result is failure")
                 break
             }
         }
@@ -108,70 +111,23 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        
     }
     
     private func fetchProfileWithStoredToken() {
         guard let token = storage.token else {
             return
         }
-        
         fetchProfile(token)
     }
     
-//    private func fetchProfile(token: String) {
-//        UIBlockingProgressHUD.show()
-//        profileService.fetchProfile(token, Constants.urlComponentToBaseProfile) { [weak self] result in
-//            UIBlockingProgressHUD.dismiss()
-//            
-//            guard let self else { return }
-//            
-//            switch result {
-//            case .success(let response):
-//                profileService.profile = response
-//                guard let username = response.username else { return }
-//                fetchProfileImageURL(token, username)
-//            case .failure:
-//                print("Error fetch token")
-//                break
-//            }
-//        }
-//    }
-//    
-//    private func fetchProfileImageURL(_ token: String, _ username: String) {
-//        ProfileImageService.shared.fetchProfileImageURL(username, token, Constants.urlComponentToPublicProfile) {
-//            [weak self] result in
-//            UIBlockingProgressHUD.dismiss()
-//            
-//            guard let self else { return }
-//            
-//            switch result {
-//            case .success(let data):
-//                guard let avatarURL = data.profileImage?.small else { return }
-//                ProfileImageService.shared.avatarURL = avatarURL
-//                
-//                NotificationCenter.default
-//                    .post(
-//                        name: ProfileImageService.didChangeNotification,
-//                        object: self,
-//                        userInfo: ["URL": avatarURL])
-//            case .failure:
-//                print("Error fetch token")
-//                break
-//            }
-//            
-//            switchToTabBarController()
-//        }
-//    }
-    
     private func fetchProfile(_ token: String) {
-        UIBlockingProgressHUD.show()
+        UIBlockingProgressHUD.show() //вопрос 4
         
         profileService.fetchProfile(token) { [weak self] result in
             
             print("SplashViewController/ func fetchProfile - Fetching profile")
             
-            UIBlockingProgressHUD.dismiss()
+            UIBlockingProgressHUD.dismiss() //вопрос 4
             
             guard let self else { return }
             
@@ -183,11 +139,11 @@ extension SplashViewController: AuthViewControllerDelegate {
                 print("SplashViewController/ func fetchProfile - Fetching profile completed")
                 switchToTabBarController()
             case .failure:
+                showAuthErrorAlert()
                 print("SplashViewController/ func fetchProfile - Error: Fetching profile failed")
             }
         }
     }
-    
     
     private func switchToAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)

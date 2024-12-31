@@ -8,27 +8,13 @@
 import UIKit
 import Kingfisher
 
-
-struct userPlaseholder {
-    let name = "Екатерина Новикова"
-    let email = "@ekaterina_nov"
-    let bio = "Hello, world!"
-    let avatar = "personPlaceholder.png"
-}
-
-
 final class ProfileViewController: UIViewController {
-    
     
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    //    private var profile: userProfile? {
-    //        ProfileService.shared.profile
-    //    }
-    
-    private let userNameText = ProfileService.shared.profile?.name ?? userPlaseholder().name
-    private let userEmailText = ProfileService.shared.profile?.email ?? userPlaseholder().email
-    private let userTextWords = ProfileService.shared.profile?.bio ?? userPlaseholder().bio
+    private let userNameText = ProfileService.shared.profile?.name
+    private let userEmailText = ProfileService.shared.profile?.email
+    private let userTextWords = ProfileService.shared.profile?.bio
     private let userPhoto = ProfileImageService.shared.avatarURL ?? userPlaseholder().avatar
     
     private let exitPictureName = "Exit.png"
@@ -44,9 +30,8 @@ final class ProfileViewController: UIViewController {
     private lazy var profileImageView: UIImageView = {
         let profileImage = UIImage(named: userPhoto)
         let profileImageView = UIImageView(image: profileImage)
-        let imageView = UIImageView(image: profileImage)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        return profileImageView
     }()
     
     private lazy var userNameLabel: UILabel = {
@@ -80,7 +65,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageServiceObserver = NotificationCenter.default
+        profileImageServiceObserver = NotificationCenter.default // вопрос Observer
             .addObserver(
                 forName: ProfileImageService.didChangeNotification,
                 object: nil,
@@ -89,10 +74,13 @@ final class ProfileViewController: UIViewController {
                 guard let self else { return }
                 self.updateAvatar()
             }
+        
         updateAvatar()
         
-        view.backgroundColor = .ypBlackIOS
         
+        view.backgroundColor = .ypBlackIOS
+        profileImageView.layer.cornerRadius = 35
+        profileImageView.clipsToBounds = true
         addSubViews()
         addConstraints()
         
@@ -135,16 +123,14 @@ final class ProfileViewController: UIViewController {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
-        else { return }
-        
-        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
-        
-        print("error: updateAvatar")
+        else {
+            print("error: updateAvatar")
+            return
+        }
         
         profileImageView.kf.setImage(
             with: url,
             placeholder: UIImage(systemName: "personPlaceholder.png")
-            
         )
     }
 }

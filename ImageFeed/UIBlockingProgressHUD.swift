@@ -8,7 +8,7 @@
 import UIKit
 import ProgressHUD
 
-final class UIBlockingProgressHUD{
+final class UIBlockingProgressHUD{ //вопрос 4
     private static var window: UIWindow?{
         return UIApplication.shared.windows.first
     }
@@ -20,6 +20,4 @@ final class UIBlockingProgressHUD{
         window?.isUserInteractionEnabled = true
         ProgressHUD.dismiss()
     }
-    
-    
 }

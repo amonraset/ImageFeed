@@ -12,7 +12,7 @@ enum ProfileImageServiceError: Error {
 
 final class ProfileImageService {
     
-    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImage")
     static let shared = ProfileImageService()
     private init() {}
     
@@ -20,7 +20,7 @@ final class ProfileImageService {
     private(set) var avatarURL: String?
     
     func fetchProfileImageURL(username: String, _ completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread)
+        assert(Thread.isMainThread) //вопрос гонка
         
         if task != nil {
             print("ProfileImageService/ Invalid request, already fetching")
@@ -83,9 +83,10 @@ final class ProfileImageService {
             assertionFailure("ProfileImageService/makeProfileImageRequest: Invalid URL for username: \(username)")
             return nil
         }
-
+        
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"  //вопрос get
         return request
     }
 }

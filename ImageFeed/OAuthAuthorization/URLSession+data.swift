@@ -45,12 +45,10 @@ extension URLSession {
 }
 
 extension URLSession {
-    func objectTask<T: Decodable>(
+    func objectTask<T: Decodable>( //вопрос
         for request: URLRequest,
         completion: @escaping (Result<T, Error>) -> Void
     ) -> URLSessionTask {
-        //let decoder = JSONDecoder()
-        //decoder.keyDecodingStrategy = .convertFromSnakeCase
         let task = data(for: request) { (result: Result<Data, Error>) in
             switch result {
             case .success(let data):
