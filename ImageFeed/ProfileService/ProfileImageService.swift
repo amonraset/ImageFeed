@@ -23,7 +23,7 @@ final class ProfileImageService {
         assert(Thread.isMainThread)
         
         if task != nil {
-            print("ProfileImageService/ Invalid request, already fetching")
+            print("ProfileImageService: Invalid request, already fetching")
             completion(.failure(ProfileImageServiceError.invalidRequest))
             return
         }
@@ -31,19 +31,16 @@ final class ProfileImageService {
         guard
             let request = makeProfileImageRequest(username: username)
         else {
-            print("ProfileImageService/ Invalid request, unable to create the request")
+            print("ProfileImageService: Invalid request, unable to create the request")
             completion(.failure(ProfileImageServiceError.invalidRequest))
             return
         }
-        
-        print("ProfileImageService:", request)
         
         let urlSession = URLSession.shared
         let task = urlSession.objectTask(for: request) { (result: Result<UserResult, Error>) in
             
             switch result {
             case .success(let userResult):
-                print(userResult.profile_image, userResult.profile_image.small)
                 let profileImageURL = userResult.profile_image.small
                 self.avatarURL = profileImageURL
                 NotificationCenter.default

@@ -7,8 +7,6 @@
 
 import UIKit
 import ProgressHUD
-//import SwiftKeychainWrapper
-
 
 final class SplashViewController: UIViewController {
     
@@ -92,7 +90,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             UIBlockingProgressHUD.dismiss()
             
             guard let self = self else {
-                print("SplashViewController/ fetchOAuthToken error: self is nil")
+                print("SplashViewController: fetchOAuthToken error: self is nil")
                 return
             }
             
@@ -102,7 +100,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure:
                 self.showAuthErrorAlert()
-                print("SplashViewController/ fetchOAuthToken error: result is failure")
+                print("SplashViewController: fetchOAuthToken error: result is failure")
                 break
             }
         }
@@ -123,7 +121,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         UIBlockingProgressHUD.show()
         profileService.fetchProfile(token) { [weak self] result in
             
-            print("SplashViewController/ func fetchProfile - Fetching profile")
+            print("SplashViewController: func fetchProfile - Fetching profile")
             
             UIBlockingProgressHUD.dismiss()
             
@@ -134,11 +132,11 @@ extension SplashViewController: AuthViewControllerDelegate {
                 username = profile.username
                 guard let username else { return }
                 ProfileImageService.shared.fetchProfileImageURL(username: username) { _ in }
-                print("SplashViewController/ func fetchProfile - Fetching profile completed")
+                print("SplashViewController: func fetchProfile - Fetching profile completed")
                 switchToTabBarController()
             case .failure:
                 showAuthErrorAlert()
-                print("SplashViewController/ func fetchProfile - Error: Fetching profile failed")
+                print("SplashViewController: func fetchProfile - Error: Fetching profile failed")
             }
         }
     }

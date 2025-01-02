@@ -36,8 +36,6 @@ final class ProfileService {
             return
         }
         
-        print("ProfileService/ Request:", request)
-        
         let urlSession = URLSession.shared
         let task = urlSession.objectTask(for: request) { (result: Result<ProfileResult, Error>) in
             switch result {
