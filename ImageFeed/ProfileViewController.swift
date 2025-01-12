@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     private let userNameText = ProfileService.shared.profile?.name
     private let userEmailText = ProfileService.shared.profile?.email
     private let userTextWords = ProfileService.shared.profile?.bio
-    private let userPhoto = ProfileImageService.shared.avatarURL ?? userPlaseholder().avatar
+    private let userPhoto = userPlaceholder().avatar
     
     private let exitPictureName = "Exit.png"
     
@@ -65,7 +65,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageServiceObserver = NotificationCenter.default 
+        profileImageServiceObserver = NotificationCenter.default
             .addObserver(
                 forName: ProfileImageService.didChangeNotification,
                 object: nil,
@@ -76,7 +76,6 @@ final class ProfileViewController: UIViewController {
             }
         
         updateAvatar()
-        
         
         view.backgroundColor = .ypBlackIOS
         profileImageView.layer.cornerRadius = 35
@@ -116,10 +115,11 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func didTapButton() {
-        //TODO  - Добавить логику при нажатии на кнопку
+        
     }
     
     private func updateAvatar() {
+        print("updateAvatar started")
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)

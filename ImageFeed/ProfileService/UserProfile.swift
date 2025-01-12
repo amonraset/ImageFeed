@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct userPlaseholder {
-    let name = "Екатерина Новикова"
-    let email = "@ekaterina_nov"
-    let bio = "Hello, world!"
+struct userPlaceholder {
+    let name = "" //"Екатерина Новикова"
+    let email = "" //"@ekaterina_nov"
+    let bio = "" //"Hello, world!"
     let avatar = "personPlaceholder.png"
 }
 

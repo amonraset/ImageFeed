@@ -8,7 +8,6 @@
 import Foundation
 
 enum ProfileServiceError: Error {
-    case extraRequest
     case invalidRequest
 }
 
@@ -26,7 +25,7 @@ final class ProfileService {
         
         if task != nil {
             print("ProfileService: The request is already in progress, no extra request needed")
-            completion(.failure(ProfileServiceError.extraRequest))
+            completion(.failure(ProfileServiceError.invalidRequest))
             return
         }
         
@@ -43,9 +42,9 @@ final class ProfileService {
                 
                 let profile = Profile(
                     username: userInfo.username,
-                    name: "\(userInfo.first_name) \(userInfo.last_name ?? userPlaseholder().name)",
-                    email: userInfo.email ?? userPlaseholder().email,
-                    bio: userInfo.bio ?? userPlaseholder().bio
+                    name: "\(userInfo.first_name) \(userInfo.last_name ?? userPlaceholder().name)",
+                    email: userInfo.email ?? userPlaceholder().email,
+                    bio: userInfo.bio ?? userPlaceholder().bio
                 )
                 self.profile = profile
                 completion(.success(profile))
@@ -64,7 +63,7 @@ final class ProfileService {
     private func makeUsersProfileRequest(token: String) -> URLRequest? {
         guard
             let url = URL(
-                string: "/me"
+                string: Constants.urlComponentToBaseProfile
                 + "?client_id=\(Constants.accessKey)",
                 relativeTo: Constants.defaultBaseURL
             )

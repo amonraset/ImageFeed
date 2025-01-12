@@ -77,32 +77,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.fetchOAuthToken(code)
-        }
-    }
-    
-    private func fetchOAuthToken(_ code: String) {
-        UIBlockingProgressHUD.show()
-        
-        oauth2Service.fetchOAuthToken(code) { [weak self] result in
-            
-            UIBlockingProgressHUD.dismiss()
-            
-            guard let self = self else {
-                print("SplashViewController: fetchOAuthToken error: self is nil")
-                return
-            }
-            
-            switch result {
-            case .success:
-                fetchProfileWithStoredToken()
-                self.switchToTabBarController()
-            case .failure:
-                self.showAuthErrorAlert()
-                print("SplashViewController: fetchOAuthToken error: result is failure")
-                break
-            }
+            guard self != nil else { return }
         }
     }
     

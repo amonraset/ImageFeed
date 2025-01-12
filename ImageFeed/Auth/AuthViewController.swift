@@ -21,7 +21,6 @@ final class AuthViewController: UIViewController {
         configureBackButton()
         print ("Load AuthViewController")
     }
-
     
     private func configureBackButton() {
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
