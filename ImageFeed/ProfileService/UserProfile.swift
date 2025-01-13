@@ -8,9 +8,6 @@
 import Foundation
 
 struct userPlaceholder {
-    let name = "" //"Екатерина Новикова"
-    let email = "" //"@ekaterina_nov"
-    let bio = "" //"Hello, world!"
     let avatar = "personPlaceholder.png"
 }
 
@@ -18,14 +15,14 @@ struct ProfileResult: Decodable {
     let username: String
     let first_name: String
     let last_name: String?
-    let email: String?
+    let loginName: String?
     let bio: String?
 }
 
 struct Profile {
     let username: String
     let name: String
-    let email: String
+    let loginName: String
     let bio: String
 }
 

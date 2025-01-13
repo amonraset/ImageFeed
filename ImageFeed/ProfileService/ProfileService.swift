@@ -42,9 +42,9 @@ final class ProfileService {
                 
                 let profile = Profile(
                     username: userInfo.username,
-                    name: "\(userInfo.first_name) \(userInfo.last_name ?? userPlaceholder().name)",
-                    email: userInfo.email ?? userPlaceholder().email,
-                    bio: userInfo.bio ?? userPlaceholder().bio
+                    name: "\(userInfo.first_name) \(userInfo.last_name ?? "")",
+                    loginName: "@\(userInfo.username)",
+                    bio: userInfo.bio ?? ""
                 )
                 self.profile = profile
                 completion(.success(profile))

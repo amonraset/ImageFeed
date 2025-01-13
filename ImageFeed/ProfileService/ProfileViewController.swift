@@ -13,7 +13,7 @@ final class ProfileViewController: UIViewController {
     private var profileImageServiceObserver: NSObjectProtocol?
     
     private let userNameText = ProfileService.shared.profile?.name
-    private let userEmailText = ProfileService.shared.profile?.email
+    private let userloginNameText = ProfileService.shared.profile?.loginName
     private let userTextWords = ProfileService.shared.profile?.bio
     private let userPhoto = userPlaceholder().avatar
     
@@ -45,7 +45,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var userEmailLabel: UILabel = {
         let userEmailLabel = UILabel()
-        userEmailLabel.text = userEmailText
+        userEmailLabel.text = userloginNameText
         userEmailLabel.font = .systemFont(ofSize: 13.0, weight: .medium)
         userEmailLabel.textColor = .ypGrayIOS
         userEmailLabel.translatesAutoresizingMaskIntoConstraints = false
