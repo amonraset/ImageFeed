@@ -16,7 +16,6 @@ final class ProfileViewController: UIViewController {
     private let userloginNameText = ProfileService.shared.profile?.loginName
     private let userTextWords = ProfileService.shared.profile?.bio
     private let userPhoto = userPlaceholder().avatar
-    
     private let exitPictureName = "Exit.png"
     
     private lazy var buttonExit: UIButton = {
@@ -127,7 +126,6 @@ final class ProfileViewController: UIViewController {
             print("updateAvatar error: invalid URL ")
             return
         }
-        
         profileImageView.kf.setImage(
             with: url,
             placeholder: UIImage(systemName: "personPlaceholder.png")
