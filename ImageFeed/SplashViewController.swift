@@ -55,7 +55,8 @@ final class SplashViewController: UIViewController {
             logoImage.heightAnchor.constraint(equalToConstant: 77.68),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        ]
+        )
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
