@@ -34,7 +34,6 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         if let token = storage.token {
             fetchProfile(token)
         } else {
