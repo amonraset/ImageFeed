@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
-    private var userPhoto = "Photo.png"
-    private let userNameText = "Екатерина Новикова"
-    private let userEmailText = "@ekaterina_nov"
-    private let userTextWords = "Hello, world!"
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
+    private let userNameText = ProfileService.shared.profile?.name
+    private let userloginNameText = ProfileService.shared.profile?.loginName
+    private let userTextWords = ProfileService.shared.profile?.bio
+    private let userPhoto = userPlaceholder().avatar
     private let exitPictureName = "Exit.png"
     
     private lazy var buttonExit: UIButton = {
@@ -25,9 +28,9 @@ final class ProfileViewController: UIViewController {
     
     private lazy var profileImageView: UIImageView = {
         let profileImage = UIImage(named: userPhoto)
-        let imageView = UIImageView(image: profileImage)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+        let profileImageView = UIImageView(image: profileImage)
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        return profileImageView
     }()
     
     private lazy var userNameLabel: UILabel = {
@@ -41,7 +44,7 @@ final class ProfileViewController: UIViewController {
     
     private lazy var userEmailLabel: UILabel = {
         let userEmailLabel = UILabel()
-        userEmailLabel.text = userEmailText
+        userEmailLabel.text = userloginNameText
         userEmailLabel.font = .systemFont(ofSize: 13.0, weight: .medium)
         userEmailLabel.textColor = .ypGrayIOS
         userEmailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +64,24 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self else { return }
+                self.updateAvatar()
+            }
+        
+        updateAvatar()
+        
+        view.backgroundColor = .ypBlackIOS
+        profileImageView.layer.cornerRadius = 35
+        profileImageView.clipsToBounds = true
         addSubViews()
         addConstraints()
+        
     }
     
     private func addSubViews() {
@@ -74,7 +93,7 @@ final class ProfileViewController: UIViewController {
     }
     
     private func addConstraints() {
-
+        
         NSLayoutConstraint.activate([
             profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -95,9 +114,23 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func didTapButton() {
-        //TODO  - Добавить логику при нажатии на кнопку
+        
     }
     
+    private func updateAvatar() {
+        print("updateAvatar started")
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else {
+            print("updateAvatar error: invalid URL ")
+            return
+        }
+        profileImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(systemName: "personPlaceholder.png")
+        )
+    }
 }
 
 

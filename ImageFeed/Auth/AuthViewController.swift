@@ -5,6 +5,7 @@
 //  Created by sm on 16.11.2024.
 //
 import UIKit
+import SwiftKeychainWrapper
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
@@ -20,7 +21,6 @@ final class AuthViewController: UIViewController {
         configureBackButton()
         print ("Load AuthViewController")
     }
-    
     
     private func configureBackButton() {
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
@@ -42,12 +42,27 @@ final class AuthViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-
+    
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        delegate?.authViewController(self, didAuthenticateWithCode: code)
+        
+        UIBlockingProgressHUD.show()
+        
+        OAuth2Service.shared.fetchOAuthToken(code) { [weak self] result in
+            
+            UIBlockingProgressHUD.dismiss()
+            
+            switch result {
+            case .success(let receivedToken):
+                guard let self else { return }
+                OAuth2TokenStorage.shared.token = receivedToken
+                delegate?.authViewController(self, didAuthenticateWithCode: code)
+            case .failure:
+                self?.showAuthErrorAlert()
+            }
+        }
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
