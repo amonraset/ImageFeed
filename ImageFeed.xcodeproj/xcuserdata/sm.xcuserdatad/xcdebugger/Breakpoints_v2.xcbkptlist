@@ -14,9 +14,9 @@
             filePath = "ImageFeed/SplashViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "fetchProfile(_:)"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "switchToAuthViewController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
