@@ -23,14 +23,7 @@ final class SplashViewController: UIViewController {
     private let oauth2Service = OAuth2Service.shared
     private let storage = OAuth2TokenStorage()
     
-    private let profileService = ProfileService.shared
-    private var username: String?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpScreen()
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
