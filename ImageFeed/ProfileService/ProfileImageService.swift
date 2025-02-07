@@ -77,8 +77,23 @@ final class ProfileImageService {
         }
         
         var request = URLRequest(url: url)
+        print("token3:", token)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
+        
+//        print("rreq:", request)
+//        print("rreq:", request.url)
+//        print("rreq:", request.httpMethod)
+//        print("rreq:", request.httpBody)
+//        print("rreq:", request.value(forHTTPHeaderField: "Authorization"))
+//        print("rreq:", request.allHTTPHeaderFields)
+        
+        
         return request
+    }
+    
+    func deleteProfileImage() {
+        avatarURL = nil
+        task = nil
     }
 }

@@ -112,8 +112,33 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    @objc
-    private func didTapButton() {
+    @objc private func didTapButton() {
+        print("exit out profile")
+        
+            let alert = UIAlertController(
+                title: "Пока, пока!",
+                message: "Уверены что хотите выйти?",
+                preferredStyle: .alert
+            )
+            
+            let actionNo = UIAlertAction(title: "Нет", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+        
+        let actionYes = UIAlertAction(title: "Да", style: .default) { _ in
+            ProfileLogoutService.shared.logout()
+            guard let window = UIApplication.shared.windows.first else {
+                assertionFailure("Invalid window configuration")
+                return
+            }
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }
+        
+        alert.addAction(actionYes)
+        alert.addAction(actionNo)
+            
+        self.present(alert, animated: true)
         
     }
     

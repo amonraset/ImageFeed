@@ -71,10 +71,15 @@ final class ProfileService {
             assertionFailure("ProfileService: Failed to create URL")
             return nil
         }
-        
+        print("\(url)")
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         return request
+    }
+    
+    func deleteProfile() {
+        profile = nil
+        task = nil
     }
 }

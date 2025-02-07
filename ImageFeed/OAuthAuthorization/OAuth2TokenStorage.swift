@@ -24,12 +24,14 @@ struct OAuthTokenResponseBody: Decodable {
 final class OAuth2TokenStorage {
     var token: String? {
         get {
-            KeychainWrapper.standard.string(forKey: Keys.token.rawValue)
+            print("token:", Keys.token.rawValue)
+            return KeychainWrapper.standard.string(forKey: Keys.token.rawValue)
         } set {
             guard let newValue else {
                 print ("OAuth Token Storage: token is nil")
                 return
             }
+            print("token:", newValue)
             KeychainWrapper.standard.set(newValue, forKey: Keys.token.rawValue)
         }
     }

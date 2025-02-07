@@ -35,6 +35,7 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let token = storage.token {
+            print("token5", token)
             fetchProfile(token)
         } else {
             switchToAuthViewController()
@@ -89,6 +90,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         guard let token = storage.token else {
             return
         }
+        print("token4:", token)
         fetchProfile(token)
     }
     

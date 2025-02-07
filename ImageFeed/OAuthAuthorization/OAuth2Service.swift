@@ -17,8 +17,10 @@ final class OAuth2Service {
     
     var authToken: String? {
         get {
-            OAuth2TokenStorage().token
+            print("token2:", OAuth2TokenStorage().token)
+            return OAuth2TokenStorage().token
         } set {
+            print("token2:", newValue)
             OAuth2TokenStorage().token = newValue
         }
     }
